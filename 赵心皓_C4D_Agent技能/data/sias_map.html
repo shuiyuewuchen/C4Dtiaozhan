@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SIAS University 周边地图（本地 Agent 生成）</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  html,body{margin:0;height:100%;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+  #map{position:absolute;inset:0;}
+  #banner{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:1000;
+    background:rgba(255,255,255,.92);padding:8px 14px;border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,.2);font-size:13px;line-height:1.5;max-width:90%;}
+  #banner b{color:#b3242b;}
+  .leaflet-popup-content{font-size:13px;line-height:1.6;}
+  .cat{display:inline-block;padding:1px 7px;border-radius:10px;color:#fff;font-size:11px;}
+</style>
+</head>
+<body>
+<div id="banner"><b>SIAS University 周边地图（本地 Agent 生成）</b><br/>
+<span style="color:#555">地点数据由本地模型生成 · 本地模型 gemma4:e4b · 点击标记查看详情，右上角切换底图</span></div>
+<div id="map"></div>
+<script>
+const DATA = [{"name": "SIAS University", "name_zh": "郑州西亚斯学院", "category": "campus", "lat": 34.4027, "lon": 113.7489, "description": "坐落于新郑，提供多元化的教育资源和现代化的校园环境。", "weather": "晴 25°C", "gcj_lat": 34.40142, "gcj_lon": 113.75505}, {"name": "Xin Zheng Bus Station", "name_zh": "新郑客运站", "category": "transport", "lat": 34.405, "lon": 113.745, "description": "区域主要的交通枢纽，连接郑州及周边城市，出行非常便捷。", "weather": "", "gcj_lat": 34.40372, "gcj_lon": 113.75115}, {"name": "Xin Zheng Food Street", "name_zh": "新郑美食街", "category": "food", "lat": 34.4, "lon": 113.74, "description": "聚集了当地特色小吃和餐馆，是品尝新郑地道风味的绝佳地点。", "weather": "阴 22°C", "gcj_lat": 34.39871, "gcj_lon": 113.74615}, {"name": "Local Shopping Center", "name_zh": "附近购物中心", "category": "shopping", "lat": 34.41, "lon": 113.75, "description": "提供日常购物和休闲娱乐的场所，满足学生和居民的生活需求。", "weather": "", "gcj_lat": 34.40872, "gcj_lon": 113.75615}, {"name": "Local Park", "name_zh": "附近公园", "category": "scenic", "lat": 34.395, "lon": 113.747, "description": "供师生放松身心、进行户外活动的绿色休闲区，环境优美宜人。", "weather": "阴 17°C", "gcj_lat": 34.39371, "gcj_lon": 113.75315}, {"name": "Major Intersection", "name_zh": "主要交叉口", "category": "campus", "lat": 34.403, "lon": 113.7495, "description": "区域内的重要地标，方便导航和定位周边设施，是重要的参照点。", "weather": "", "gcj_lat": 34.40172, "gcj_lon": 113.75565}, {"name": "Local Temple", "name_zh": "附近寺庙", "category": "scenic", "lat": 34.401, "lon": 113.738, "description": "具有历史文化意义的宗教场所，展现新郑深厚的传统风貌和文化底蕴。", "weather": "", "gcj_lat": 34.39971, "gcj_lon": 113.74415}, {"name": "Nearby School", "name_zh": "周边学校", "category": "campus", "lat": 34.4055, "lon": 113.751, "description": "区域内另一所教育机构，体现了新郑浓厚的教育氛围和学习氛围。", "weather": "", "gcj_lat": 34.40422, "gcj_lon": 113.75715}];
+const COLORS = {"campus": "#d62728", "food": "#ff7f0e", "scenic": "#2ca02c", "transport": "#1f77b4", "shopping": "#9467bd", "sports": "#17becf", "other": "#7f7f7f"};
+const map = L.map('map').setView([34.40142, 113.75505], 15);
+
+// 底图（WGS-84）
+const carto = L.tileLayer('https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+  maxZoom:20, attribution:'&copy; OpenStreetMap &copy; CARTO'});
+const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  maxZoom:19, attribution:'&copy; OpenStreetMap'});
+// 高德底图（GCJ-02），中心与标记均用纠偏后的坐标
+const gcjGroup = L.layerGroup();
+const amap = L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',{
+  subdomains:['1','2','3','4'], maxZoom:20, attribution:'&copy; 高德地图'});
+amap.addTo(gcjGroup);
+
+gcjGroup.addTo(map);
+
+function markerIcon(color, campus){
+  return L.divIcon({className:'', html:
+    '<div style="width:'+(campus?22:14)+'px;height:'+(campus?22:14)+'px;border-radius:50% 50% 50% 0;'+
+    'transform:rotate(-45deg);background:'+color+';border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4);"></div>',
+    iconSize:[campus?22:14,campus?22:14], iconAnchor:[campus?11:7,campus?11:7]});
+}
+
+DATA.forEach(d=>{
+  const color = COLORS[d.category] || COLORS.other;
+  const campus = (d.category==='campus');
+  const popup = `<b>${d.name_zh}</b> <span class="cat" style="background:${color}">${d.category}</span><br/>
+    <span style="color:#888">${d.name}</span><br/>
+    📍 ${d.lat.toFixed(4)}, ${d.lon.toFixed(4)} (WGS-84)<br/>
+    ${d.description||''}${d.weather?('<br/>🌤 '+d.weather):''}`;
+  // WGS-84 层
+  L.marker([d.lat,d.lon],{icon:markerIcon(color,campus)}).bindPopup(popup).bindTooltip(d.name_zh).addTo(carto);
+  L.marker([d.lat,d.lon],{icon:markerIcon(color,campus)}).bindPopup(popup).bindTooltip(d.name_zh).addTo(osm);
+  // GCJ-02 层（高德）
+  L.marker([d.gcj_lat,d.gcj_lon],{icon:markerIcon(color,campus)}).bindPopup(popup).bindTooltip(d.name_zh).addTo(gcjGroup);
+});
+
+L.control.layers({
+  "CartoDB (WGS-84)": carto,
+  "OpenStreetMap (WGS-84)": osm,
+  "高德地图 (GCJ-02)": gcjGroup
+}, {}, {collapsed:false}).addTo(map);
+</script>
+</body>
+</html>

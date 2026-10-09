@@ -1,1 +1,6 @@
-赵心皓_C4D_agent-skill/requirements.txt
+# 本技能核心仅依赖 Python 3.9+ 标准库（urllib/json），无需 pip 安装即可运行。
+# 下面是可选项（非必须）：
+#   requests     —— 若你想用更友好的 HTTP 客户端（本项目未使用）
+#   folium       —— 备选地图库（本项目用 Leaflet.js 自渲染，未使用）
+#
+# 唯一的外部依赖是：本机已安装 Ollama 并下载了一个 Gemma/开源模型。
