@@ -1,0 +1,80 @@
+{
+  "raw_model_json": "{\"locations\":[\n    {\n        \"name\": \"SIAS University\",\n        \"name_zh\": \"郑州西亚斯学院\",\n        \"category\": \"campus\",\n        \"latitude\": 34.4027,\n        \"longitude\": 113.7489,\n        \"description\": \"学校主校区，提供现代化的教学环境和完善的校园设施。\"\n    },\n    {\n        \"name\": \"Zhengzhou Railway Station\",\n        \"name_zh\": \"郑州站\",\n        \"category\": \"transport\",\n        \"latitude\": 34.6021,\n        \"longitude\": 113.6422,\n        \"description\": \"重要的交通枢纽，方便学生和访客通过高铁快速到达。\"\n    },\n    {\n        \"name\": \"Local Food Street\",\n        \"name_zh\": \"周边美食街\",\n        \"category\": \"food\",\n        \"latitude\": 34.4155,\n        \"longitude\": 113.7550,\n        \"description\": \"聚集了许多地道的河南小吃和特色餐厅，满足日常用餐需求。\"\n    },\n    {\n        \"name\": \"Xiayas Shopping Center\",\n        \"name_zh\": \"西亚斯商圈\",\n        \"category\": \"shopping\",\n        \"latitude\": 34.4088,\n        \"longitude\": 113.7401,\n        \"description\": \"紧邻学校的商业区，提供购物、休闲和娱乐服务，生活便利。\"\n    },\n    {\n        \"name\": \"Local Park\",\n        \"name_zh\": \"社区公园\",\n        \"category\": \"scenic\",\n        \"latitude\": 34.4050,\n        \"longitude\": 113.7355,\n        \"description\": \"提供一个放松身心的绿色空间，适合散步和进行户外运动。\"\n    },\n    {\n        \"name\": \"Zhengzhou Bus Station\",\n        \"name_zh\": \"郑州客运站\",\n        \"category\": \"transport\",\n        \"latitude\": 34.4201,\n        \"longitude\": 113.7605,\n        \"description\": \"区域客运中心，连接周边城镇，方便前往省内其他地区。\"\n    },\n    {\n        \"name\": \"Local Sports Center\",\n        \"name_zh\": \"体育活动中心\",\n        \"category\": \"sports\",\n        \"latitude\": 34.4005,\n        \"longitude\": 113.7512,\n        \"description\": \"提供篮球、跑步等运动设施，是学生进行体育锻炼的场所。\"\n    },\n    {\n        \"name\": \"Xiayas Market\",\n        \"name_zh\": \"西亚斯菜市场\",\n        \"category\": \"food\",\n        \"latitude\": 34.4102,\n        \"longitude\": 113.7458,\n        \"description\": \"当地居民采购生鲜食材的场所，价格实惠，生活气息浓厚。\"\n    }\n]}",
+  "locations": [
+    {
+      "name": "SIAS University",
+      "name_zh": "郑州西亚斯学院",
+      "category": "campus",
+      "latitude": 34.4027,
+      "longitude": 113.7489,
+      "description": "学校主校区，提供现代化的教学环境和完善的校园设施。"
+    },
+    {
+      "name": "Zhengzhou Railway Station",
+      "name_zh": "郑州站",
+      "category": "transport",
+      "latitude": 34.6021,
+      "longitude": 113.6422,
+      "description": "重要的交通枢纽，方便学生和访客通过高铁快速到达。"
+    },
+    {
+      "name": "Local Food Street",
+      "name_zh": "周边美食街",
+      "category": "food",
+      "latitude": 34.4155,
+      "longitude": 113.755,
+      "description": "聚集了许多地道的河南小吃和特色餐厅，满足日常用餐需求。"
+    },
+    {
+      "name": "Xiayas Shopping Center",
+      "name_zh": "西亚斯商圈",
+      "category": "shopping",
+      "latitude": 34.4088,
+      "longitude": 113.7401,
+      "description": "紧邻学校的商业区，提供购物、休闲和娱乐服务，生活便利。"
+    },
+    {
+      "name": "Local Park",
+      "name_zh": "社区公园",
+      "category": "scenic",
+      "latitude": 34.405,
+      "longitude": 113.7355,
+      "description": "提供一个放松身心的绿色空间，适合散步和进行户外运动。"
+    },
+    {
+      "name": "Zhengzhou Bus Station",
+      "name_zh": "郑州客运站",
+      "category": "transport",
+      "latitude": 34.4201,
+      "longitude": 113.7605,
+      "description": "区域客运中心，连接周边城镇，方便前往省内其他地区。"
+    },
+    {
+      "name": "Local Sports Center",
+      "name_zh": "体育活动中心",
+      "category": "sports",
+      "latitude": 34.4005,
+      "longitude": 113.7512,
+      "description": "提供篮球、跑步等运动设施，是学生进行体育锻炼的场所。"
+    },
+    {
+      "name": "Xiayas Market",
+      "name_zh": "西亚斯菜市场",
+      "category": "food",
+      "latitude": 34.4102,
+      "longitude": 113.7458,
+      "description": "当地居民采购生鲜食材的场所，价格实惠，生活气息浓厚。"
+    }
+  ],
+  "model_timing": {
+    "wall_time_s": 26.0,
+    "usage": {
+      "prompt_tokens": 253,
+      "prompt_tokens_details": {
+        "cached_tokens": 6
+      },
+      "completion_tokens": 1543,
+      "total_tokens": 1796
+    }
+  }
+}
