@@ -36,8 +36,24 @@ proof.sh 实测：**710 tokens / 24.4s = 29.1 tok/s**（另一次 476/14.6 ≈ 3
 | 三底图切换 | CartoDB / OSM / 高德（右上角图层控件） | HTML 源码 |
 | 坐标纠偏 | WGS-84 点同时渲染到高德(GCJ)层 | coordinate.py |
 
-## 5. 已知限制（如实说明）
+## 5. 一键复现（评分员可照做）
+
+```bash
+# 前置：Ollama 已装、服务已起（curl http://127.0.0.1:11434/api/version 有返回）
+ollama pull gemma4:e4b                 # 若本地还没有
+cd 赵心皓_C4D_agent-skill
+export C4D_MODEL=gemma4:e4b
+python3 -m sias_agent.run_demo
+```
+
+**期望输出（关键标志）：**
+- 终端打印 `本次使用模型: gemma4:e4b`；
+- Level 2 打印 `解析到 8 个地点；模型耗时 ~26s`；
+- Level 3 打印工具调用 `search_nearby_locations` + 三次 `get_weather`，最后 `Agent 共收集 8 个地点`；
+- `data/sias_map.html` 生成，浏览器打开可见郑州西亚斯学院周边标记。
+
+## 6. 已知限制（如实说明）
 
 - CARTO 底图现已需 API key，默认改用高德；国内打开地图需联网取瓦片（模型推理本身仍离线）。
 - 小模型生成的地点坐标是「围绕 SIAS 的示意坐标」，不是测绘级精确定位；弹窗中已标注 WGS-84 坐标。
-- 公众号文章尚未真正发布（需本人公众号后台权限），交付草稿 + 链接占位。
+- 公众号文章已发布，链接见 `赵心皓_C4D_公众号链接.txt`。

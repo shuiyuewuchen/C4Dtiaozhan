@@ -24,9 +24,23 @@ sias_agent/
   map_renderer.py  # 地点数据 -> 自包含 Leaflet HTML
   coordinate.py    # WGS-84 <-> GCJ-02 坐标纠偏
   run_demo.py      # 端到端入口（Level1->2->3）
-logs/              # 每次运行的模型原始输出与 Agent trace（证据）
+logs/              # 每次运行的模型原始输出与 Agent trace（证据，见 logs/README.md）
 data/              # 生成的地图 HTML
 ```
+
+## 三张地图文件的区别
+
+| 文件 | 是什么 |
+|---|---|
+| `../赵心皓_C4D_map.html`（根目录） | **最终交付入口**，双击这个即可；内容等于 `data/sias_map.html` |
+| `data/sias_map.html` | Level 3 最终地图：8 个地点 + 天气，三底图切换 |
+| `data/sias_map_level2.html` | Level 2 早期版：只有地点、无天气，留作过程对照 |
+
+## 快速事实
+
+- 模型：gemma4:e4b（8.1B / nvfp4 量化 / 9.5GB，支持 function calling）
+- 设备：Mac mini M4 / 16GB / macOS arm64，实测约 29 tok/s
+- 依赖：Python 3.9+ 标准库，零 pip 安装
 
 ## 如何复现
 
