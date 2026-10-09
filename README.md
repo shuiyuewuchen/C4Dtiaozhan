@@ -11,6 +11,8 @@
 
 ## 我用了什么
 
+> 📁 **Agent 技能包在 `赵心皓_C4D_Agent技能/`**（与 `赵心皓_C4D_agent-skill/` 同一份内容：源码 + 分级日志 + 生成产物）。
+
 - 设备：Mac mini M4 / 16GB / macOS 26.3
 - 运行工具：Ollama 0.40.2
 - 模型：gemma4:e4b，81 亿参数，nvfp4 量化，约 9.5GB
